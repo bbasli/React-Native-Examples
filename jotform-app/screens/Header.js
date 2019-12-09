@@ -7,14 +7,14 @@ import SortOptionModal from "./sortOptionModal";
 import CategoryModal from "./CategoryModal";
 import SettingsModal from "./SettingsModal";
 
-const Header = () => {
+const Header = (props) => {
 
     const [optionModalVisible, setOptionModalVisible] = useState(false);
     const [categoryModalVisible, setCategoryModalVisible] = useState(false);
     const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
     const [headerTitle, setHeaderTitle] = useState("My Forms");
-
+    
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -73,6 +73,9 @@ const Header = () => {
                     setTitle={setHeaderTitle}
                 />
                 <SettingsModal
+                    isLogged={props.isLogged}
+                    setIsLogged={props.setIsLogged}
+                    logoutHandler={props.logoutHandler}
                     modalVisible={settingsModalVisible}
                     setModalVisible={setSettingsModalVisible}
                     title={"Settings"}
@@ -85,9 +88,9 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 20,
+        paddingTop: 10,
         backgroundColor: "#2c3144",
-        height: 135,
+        height: 125,
         width: "100%",
     },
     row: {

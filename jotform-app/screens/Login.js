@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import Icon from "react-native-vector-icons/EvilIcons";
 
+
 const Login = (props) => {
 
     return (
@@ -28,7 +29,7 @@ const Login = (props) => {
                         size={48}
                     />
                 </View>
-                <TextInput placeholder="Password" onChangeText={(text) => props.passwordHandler(text)} />
+                <TextInput secureTextEntry={true} placeholder="Password" onChangeText={(text) => props.passwordHandler(text)} />
             </View>
             <View style={styles.buttonContainer}>
                 <Button style={styles.button} color="#ff4800" title="Login" onPress={props.loginHandler} />

@@ -29,7 +29,7 @@ const FormModal = (props) => {
                     </View>
                     <ScrollView>
                     <View style={{ marginLeft: 7 }}>
-                        <TouchableOpacity style={styles.modal_options}>
+                        <TouchableOpacity style={styles.modal_options} onPress={() => {props.setSeeSub(true); props.setModalVisible(false); }}>
                             <Entypo
                                 name='text-document'
                                 size={22}

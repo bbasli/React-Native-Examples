@@ -11,11 +11,17 @@ const Passer = (props) => {
                 tsubNum={props.first_tsubNum}
                 csubNum={props.second_csubNum}
                 title={props.first_title}
+                appKey={props.appKey}
+                id={props.id1}
+                status={props.status1}
             />
             <FormCard
                 tsubNum={props.second_tsubNum}
                 csubNum={props.second_csubNum}
                 title={props.second_title}
+                appKey={props.appKey}
+                id={props.id2}
+                status={props.status2}
             />
         </View>
     )

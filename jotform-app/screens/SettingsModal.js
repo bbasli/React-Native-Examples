@@ -49,37 +49,37 @@ const SettingsModal = (props) => {
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Language </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  Language  </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Offline Forms </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  Offline Forms  </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Notifications </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  Notifications  </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Sync Your Data </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  Sync Your Data  </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Give Feedback </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  Give Feedback  </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Version </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  Version  </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
-                        <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "blue", fontSize: 18 }}>  Log out </Text>
+                        <TouchableOpacity style={styles.catogory} onPress={() => props.logoutHandler()}>
+                            <Text style={{ color: "blue", fontSize: 18 }}>  Log out  </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         backgroundColor: "#2c3144",
-        height: "11%",
+        height: "9%",
         justifyContent: "center",
         paddingTop: 15
     },

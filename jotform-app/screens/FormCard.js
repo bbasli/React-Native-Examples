@@ -4,11 +4,14 @@ import Feather from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import FormModal from "./FormModal";
+import Submissions from "./Submissions";
+
 
 const FormCard = (props) => {
 
     const [isFav, setIsFav] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+    const [seeSub, setSeeSub] = useState(false);
 
     return (
         <TouchableOpacity style={styles.cardContainer} onPress={() => setModalVisible(!modalVisible)}>
@@ -17,6 +20,14 @@ const FormCard = (props) => {
                 setModalVisible={setModalVisible}
                 tsubNum={props.tsubNum}
                 title={props.title}
+                setSeeSub={setSeeSub}
+            />
+            <Submissions 
+              modalVisible={seeSub}
+              setModalVisible={setSeeSub}
+              title={props.title}
+              appKey={props.appKey}
+              id={props.id}
             />
             <View style={styles.first}>
                 <TouchableOpacity onPress={() => setIsFav(!isFav)}>
