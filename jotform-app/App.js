@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ActivityIndicator, ScrollView, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  ScrollView,
+  SafeAreaView,
+  FlatList,
+} from 'react-native';
 import axios from "axios";
-import useForceUpdate from 'use-force-update';
 
 import Login from "./screens/Login";
 import Header from "./screens/Header";
-import Passer from "./screens/Passer";
+import FormCard from "./screens/FormCard";
 
 
 export default function App() {
 
-  const forceUpdate = useForceUpdate();
   const [isLogged, setIsLogged] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [appKey, setappKey] = useState("");
   const [content, setContent] = useState({});
+  const [isENG, setisENG] = useState(true);
 
   const usernameHandler = (newUsername) => {
     setUsername(newUsername);
@@ -46,19 +53,15 @@ export default function App() {
 
     for (let i = 0, j = 1; j < content.length; i = i + 2, j = j + 2) {
       if (content[i].title !== undefined && content[i].count !== undefined && content[i].new !== undefined) {
-        myForms.push(<Passer
+        myForms.push(<FormCard
+          language={isENG}
           key={i}
           first_tsubNum={content[i].count}
           first_title={content[i].title}
           first_csubNum={content[i].new}
-          second_tsubNum={content[j].count}
-          second_title={content[j].title}
-          second_csubNum={content[j].new}
           id1={content[i].id}
           appKey={appKey}
           status1={content[i].status}
-          id2={content[j].id}
-          status2={content[j].status}
         />)
       }
     }
@@ -86,15 +89,21 @@ export default function App() {
       method: "post",
       url: "https://api.jotform.com/user/login",
       data: formData,
-      config: { headers: { "Content-Type": "multipart/form-data", "User-Agent": "JotForm Mobile" } }
+      config: {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "User-Agent": "JotForm Mobile"
+        }
+      }
     })
       .then(function success(response) {
         const userInfo = response.data.content;
-        //console.log(userInfo);
+
         if (response.data.responseCode === 401)
           alert.alert("Wrong!!!");
         else {
           console.log("Setted App Key");
+          setEmail(userInfo.email);
           setappKey(userInfo.appKey);
           setIsLogged(true);
         }
@@ -103,6 +112,11 @@ export default function App() {
         console.log(response);
         console.log("Fail your try to Log in");
       })
+  }
+
+  const testLogin = () => {
+    setappKey("19c201ac270eaaa20af307005546e228");
+    setIsLogged(true);
   }
 
 
@@ -117,8 +131,8 @@ export default function App() {
         setContent(response.data.content);
         //console.log("Content: ", response.data.content);
       })
-      .catch(function fail() {
-        console.log("HATA");
+      .catch(function fail(response) {
+        console.log("Get Forms HATA: " + response);
       })
 
   }
@@ -129,13 +143,32 @@ export default function App() {
         <SafeAreaView>
           < View style={styles.container} >
             <Header
+              username={username}
+              email={email}
+              setLanguage={setisENG}
+              language={isENG}
               isLogged={isLogged}
               setIsLogged={setIsLogged}
               logoutHandler={logoutHandler}
             />
-            <View style={{ marginVertical: "2.5%", height: "81.5%" }}>
+            <View style={{ height: "82.5%" }}>
               <ScrollView>
-                {fillFormPage(content)}
+                <FlatList
+                  data={content}
+                  renderItem={({ item }) =>
+                    <FormCard
+                      language={isENG}
+                      key={item.id}
+                      tsubNum={item.count}
+                      csubNum={item.new}
+                      title={item.title}
+                      appKey={appKey}
+                      id={item.id}
+                      status={item.status}
+                    />}
+                  keyExtractor={item => item.id}
+                  numColumns={2}
+                />
               </ScrollView>
             </View>
           </View >
@@ -154,7 +187,7 @@ export default function App() {
     return (
 
       <Login
-        loginHandler={loginHandler}
+        loginHandler={testLogin}
         username={username}
         password={password}
         usernameHandler={usernameHandler}
@@ -166,7 +199,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    alignContent: "center"
+    alignContent: "center",
   },
   cardContainer: {
     flexDirection: "row",
