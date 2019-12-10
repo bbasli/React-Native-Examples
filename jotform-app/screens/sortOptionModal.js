@@ -16,7 +16,7 @@ const sortOptionModal = (props) => {
             <View style={styles.modalContainer}>
                 <View>
                     <View style={styles.modalHeader}>
-                        <Text style={styles.modal_title}> Sorted By </Text>
+                        <Text style={styles.modal_title}> {props.language ? "Sorted By" : "Sıralama Ölçütleri"} </Text>
                         <TouchableOpacity style={{ position: "absolute", right: 0 }} onPress={() => { props.setModalVisible(!props.modalVisible); }}>
                             <Feather
                                 name='chevron-down'
@@ -34,7 +34,7 @@ const sortOptionModal = (props) => {
                                 color="#67ba97"
                                 style={{ marginRight: 10 }}
                             />
-                            <Text style={styles.modal_option_text}> A to Z </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "A to Z" : "A'dan Z'ye"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <FontAwesome
@@ -43,7 +43,7 @@ const sortOptionModal = (props) => {
                                 color="#3f76fe"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Z to A </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Z to A" : "Z'den A'ya"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <Ionicons
@@ -52,7 +52,7 @@ const sortOptionModal = (props) => {
                                 color="#36dac0"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Date Created </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Date Created": "Oluşturulma Tarihi"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <Feather
@@ -61,7 +61,7 @@ const sortOptionModal = (props) => {
                                 color="orange"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Last Modified </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Last Modified" : "Son Değişiklik"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <Feather
@@ -70,7 +70,7 @@ const sortOptionModal = (props) => {
                                 color="#f6dd5a"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Last Submission </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Last Submission" : "Son Form Yanıtı"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <Feather
@@ -79,7 +79,7 @@ const sortOptionModal = (props) => {
                                 color="#a49fef"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Submissions Count </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Submissions Count" : "Form Yanıtı Sayısı"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <Feather
@@ -88,7 +88,7 @@ const sortOptionModal = (props) => {
                                 color="#fd6898"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Unread </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Unread" : "Okunmamış"} </Text>
                         </TouchableOpacity>
                     </View>
                 </View>

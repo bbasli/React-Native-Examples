@@ -13,7 +13,7 @@ const SettingsModal = (props) => {
             visible={props.modalVisible}>
             <View style={{ height: "100%" }}>
                 <View style={styles.header}>
-                    <TouchableOpacity style={styles.goBack} onPress={() => props.setModalVisible(false)}>
+                    <TouchableOpacity style={styles.goBack} onPress={() => (props.setModalVisible(false), props.setLanguage(false))}>
                         <Feather
                             name='chevron-left'
                             size={26}
@@ -23,7 +23,7 @@ const SettingsModal = (props) => {
                     <Text style={styles.header_title}> {props.title}</Text>
                 </View>
                 <View>
-                    <View style={{ marginLeft: 15, marginTop: 20, flexDirection: "row", borderBottomWidth: 1, borderBottomColor: "lightgrey", paddingBottom: 25 }}>
+                    <View style={styles.avatar}>
                         <Avatar
                             rounded
                             size="large"
@@ -35,51 +35,63 @@ const SettingsModal = (props) => {
                         />
                         <View style={{ marginLeft: 20 }}>
                             <Text style={{ marginTop: 10, fontWeight: "500", fontSize: 16 }}>
-                                bgrbasli
+                                {props.username}
                             </Text>
                             <Text style={{ marginTop: 10, fontSize: 16 }}>
-                                bgrbasli@gmail.com
+                                {props.email}
                             </Text>
                             <TouchableOpacity style={{ marginTop: 10, fontSize: 16 }}>
                                 <Text style={{ color: "blue" }}>
-                                    Change password
+                                    {props.language ? "Change password" : "Şifreyi Değiştir"}
                                 </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.subCategory}>
-                        <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Language  </Text>
+                        <TouchableOpacity style={styles.catogory} onPress={() => props.setLanguage(!props.language)}>
+                            <Text style={{ color: "black", fontSize: 18 }}>  {props.language ? "Language" : "Dil"}  </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Offline Forms  </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>
+                                {props.language ? "Offline Forms" : "Çevrimdışı Formlar"}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Notifications  </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>
+                                {props.language ? "Notifications" : "Bildirimler"}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Sync Your Data  </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>
+                                {props.language ? "Sync Your Data" : "Verileri Senkronize Et"}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Give Feedback  </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>
+                                {props.language ? "Give Feedback" : "Geri Bildirim Gönder"}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Version  </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>
+                                {props.language ? "Version" : "Sürüm"}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory} onPress={() => props.logoutHandler()}>
-                            <Text style={{ color: "blue", fontSize: 18 }}>  Log out  </Text>
+                            <Text style={{ color: "blue", fontSize: 18 }}>
+                                {props.language ? "Log out" : "Çıkış yap"}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -116,6 +128,14 @@ const styles = StyleSheet.create({
         borderBottomColor: "lightgrey",
         marginHorizontal: 15
     },
+    avatar: {
+        marginLeft: 15,
+        marginTop: 20,
+        flexDirection: "row",
+        borderBottomWidth: 1,
+        borderBottomColor: "lightgrey",
+        paddingBottom: 25
+    }
 });
 
 export default SettingsModal;

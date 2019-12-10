@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, View, Image } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -12,22 +12,23 @@ const FormCard = (props) => {
     const [isFav, setIsFav] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [seeSub, setSeeSub] = useState(false);
-
+    console.log("Form Card is eng: ",props.language);
     return (
         <TouchableOpacity style={styles.cardContainer} onPress={() => setModalVisible(!modalVisible)}>
             <FormModal
+                language={props.language}
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
                 tsubNum={props.tsubNum}
                 title={props.title}
                 setSeeSub={setSeeSub}
             />
-            <Submissions 
-              modalVisible={seeSub}
-              setModalVisible={setSeeSub}
-              title={props.title}
-              appKey={props.appKey}
-              id={props.id}
+            <Submissions
+                modalVisible={seeSub}
+                setModalVisible={setSeeSub}
+                title={props.title}
+                appKey={props.appKey}
+                id={props.id}
             />
             <View style={styles.first}>
                 <TouchableOpacity onPress={() => setIsFav(!isFav)}>
@@ -52,7 +53,8 @@ const FormCard = (props) => {
                 {props.title}
             </Text>
             <Text style={styles.bottom}>
-                {props.csubNum === "0" ? "No" : props.csubNum} Submission
+                {props.language ?
+                    ((props.csubNum === "0" ? "No" : props.csubNum) + " Submission") : "Türkçe"}
             </Text>
         </TouchableOpacity>
     );
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
         height: 165,
         width: "45%",
         marginLeft: "3.5%",
+        marginTop: 10
     },
     first: {
         flexDirection: "row",

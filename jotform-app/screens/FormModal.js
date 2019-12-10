@@ -9,7 +9,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 const FormModal = (props) => {
 
     return (
-
         <Modal
             animationType="slide"
             transparent={true}
@@ -36,7 +35,7 @@ const FormModal = (props) => {
                                 color="#67ba97"
                                 style={{ marginRight: 10 }}
                             />
-                            <Text style={styles.modal_option_text}> View Submissions </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "View Submissions" : "Form Yanıtlarını Gör"} </Text>
                             <Text style={styles.modal_submission}> {props.tsubNum} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
@@ -46,7 +45,7 @@ const FormModal = (props) => {
                                 color="#3f76fe"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Fill Out Form </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Fill Out Form" : "Formu Doldur"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <FontAwesome
@@ -55,7 +54,7 @@ const FormModal = (props) => {
                                 color="orange"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Edit Form </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Edit Form" : "Formu Düzenle"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <Ionicons
@@ -64,7 +63,7 @@ const FormModal = (props) => {
                                 color="#36dac0"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Assign Form </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Assign Form" : "Formu Ata"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <Feather
@@ -73,7 +72,7 @@ const FormModal = (props) => {
                                 color="#f6dd5a"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Open in Kiosk Mode </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Open in Kiosk Mode" : "Kiosk Modunda Aç"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <FontAwesome
@@ -82,7 +81,7 @@ const FormModal = (props) => {
                                 color="#a49fef"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Share </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Share" : "Formu Paylaş"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <Feather
@@ -91,7 +90,7 @@ const FormModal = (props) => {
                                 color="#fd6898"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Disable Form </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Disable Form" : "Formu Devre Dışı Bırak"} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.modal_options}>
                             <FontAwesome
@@ -100,7 +99,7 @@ const FormModal = (props) => {
                                 color="#d92857"
                                 style={{ marginRight: 15 }}
                             />
-                            <Text style={styles.modal_option_text}> Delete Form </Text>
+                            <Text style={styles.modal_option_text}> {props.language ? "Delete Form" : "Formu Sil"} </Text>
                         </TouchableOpacity>
                     </View>
                     </ScrollView>

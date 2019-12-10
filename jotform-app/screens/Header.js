@@ -14,7 +14,7 @@ const Header = (props) => {
     const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
     const [headerTitle, setHeaderTitle] = useState("My Forms");
-    
+
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -27,7 +27,7 @@ const Header = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.header_title} onPress={() => setCategoryModalVisible(true)}>
                     <Text style={styles.typeText}>
-                        My Forms
+                        {props.language ? "My Forms" : "Formlarım"}
                     </Text>
                     <Icon2
                         name='downcircle'
@@ -63,22 +63,28 @@ const Header = (props) => {
                     />
                 </TouchableOpacity>
                 <SortOptionModal
+                    language={props.language}
                     modalVisible={optionModalVisible}
                     setModalVisible={setOptionModalVisible}
                 />
                 <CategoryModal
+                    language={props.language}
                     modalVisible={categoryModalVisible}
                     setModalVisible={setCategoryModalVisible}
                     title={headerTitle}
                     setTitle={setHeaderTitle}
                 />
                 <SettingsModal
+                    username={props.username}
+                    email={props.email}
+                    language={props.language}
+                    setLanguage={props.setLanguage}
                     isLogged={props.isLogged}
                     setIsLogged={props.setIsLogged}
                     logoutHandler={props.logoutHandler}
                     modalVisible={settingsModalVisible}
                     setModalVisible={setSettingsModalVisible}
-                    title={"Settings"}
+                    title={props.language ? "Settings" : "Ayarlar"}
                 />
             </View>
         </View>
@@ -88,9 +94,9 @@ const Header = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 10,
+        paddingTop: 15,
         backgroundColor: "#2c3144",
-        height: 125,
+        height: 130,
         width: "100%",
     },
     row: {

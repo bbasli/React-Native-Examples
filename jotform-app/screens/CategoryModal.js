@@ -24,27 +24,27 @@ const CategoryModal = (props) => {
                 <View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  My Forms </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  {props.language ? "My Forms" : "Formlarım"} </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  My Folders </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}> {props.language ? "My Folders" : "Dosyalarım"}  </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Favorited </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  {props.language ? "Favorited" : "Favorilerim"} </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Archived </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  {props.language ? "Archived" : "Arşivlenenler"} </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
                         <TouchableOpacity style={styles.catogory}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  Trash </Text>
+                            <Text style={{ color: "black", fontSize: 18 }}>  {props.language ? "Trash" : "Çöp"} </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
