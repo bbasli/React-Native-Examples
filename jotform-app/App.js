@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
   ActivityIndicator,
   ScrollView,
-  SafeAreaView,
   FlatList,
+  TouchableOpacity,
+  Text,
+  Keyboard,
+  Dimensions
 } from 'react-native';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 
 import Login from "./screens/Login";
 import Header from "./screens/Header";
 import FormCard from "./screens/FormCard";
-
+import Feedback from "./screens/Feedback";
 
 export default function App() {
 
@@ -21,8 +25,35 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [appKey, setappKey] = useState("");
+  const [responseCode, setResponseCode] = useState("0");
   const [content, setContent] = useState({});
   const [isENG, setisENG] = useState(true);
+  const [seeFeedback, setFeedback] = useState(false);
+
+  const screenWidth = Math.round(Dimensions.get('window').width);
+  const screenHeight = Math.round(Dimensions.get('window').height);
+
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   const usernameHandler = (newUsername) => {
     setUsername(newUsername);
@@ -43,30 +74,9 @@ export default function App() {
     setPassword("");
     setappKey("");
     setContent({});
+    setResponseCode("0");
+    setEmail("");
     setIsLogged(false);
-  }
-
-  const fillFormPage = (content) => {
-    let myForms = []
-    console.log("Fill Form");
-    //console.log(content);
-
-    for (let i = 0, j = 1; j < content.length; i = i + 2, j = j + 2) {
-      if (content[i].title !== undefined && content[i].count !== undefined && content[i].new !== undefined) {
-        myForms.push(<FormCard
-          language={isENG}
-          key={i}
-          first_tsubNum={content[i].count}
-          first_title={content[i].title}
-          first_csubNum={content[i].new}
-          id1={content[i].id}
-          appKey={appKey}
-          status1={content[i].status}
-        />)
-      }
-    }
-
-    return myForms;
   }
 
   // appKey = 19c201ac270eaaa20af307005546e228
@@ -84,6 +94,7 @@ export default function App() {
 
   const login = () => {
     const formData = getFormData();
+
     console.log("Try to login in");
     axios({
       method: "post",
@@ -98,9 +109,9 @@ export default function App() {
     })
       .then(function success(response) {
         const userInfo = response.data.content;
-
+        setResponseCode(response.data.responseCode);
         if (response.data.responseCode === 401)
-          alert.alert("Wrong!!!");
+          console.log("Wrong!!!");
         else {
           console.log("Setted App Key");
           setEmail(userInfo.email);
@@ -109,12 +120,17 @@ export default function App() {
         }
       })
       .catch(function fail(response) {
-        console.log(response);
+        //console.log(response);
+        setResponseCode("401");
         console.log("Fail your try to Log in");
       })
   }
 
   const testLogin = () => {
+    if (username === "")
+      console.log("username is empty");
+    if (password === "")
+      console.log("Password is empty")
     setappKey("19c201ac270eaaa20af307005546e228");
     setIsLogged(true);
   }
@@ -140,39 +156,65 @@ export default function App() {
   if (isLogged && appKey !== "") {
     if (content.length > 0) {
       return (
-        <SafeAreaView>
-          < View style={styles.container} >
-            <Header
-              username={username}
-              email={email}
-              setLanguage={setisENG}
-              language={isENG}
-              isLogged={isLogged}
-              setIsLogged={setIsLogged}
-              logoutHandler={logoutHandler}
-            />
-            <View style={{ height: "82.5%" }}>
-              <ScrollView>
-                <FlatList
-                  data={content}
-                  renderItem={({ item }) =>
-                    <FormCard
-                      language={isENG}
-                      key={item.id}
-                      tsubNum={item.count}
-                      csubNum={item.new}
-                      title={item.title}
-                      appKey={appKey}
-                      id={item.id}
-                      status={item.status}
-                    />}
-                  keyExtractor={item => item.id}
-                  numColumns={2}
-                />
-              </ScrollView>
+
+        < View style={styles.container} >
+          <Header
+            setResponseCode={setResponseCode}
+            responseCode={responseCode}
+            username={username}
+            email={email}
+            setLanguage={setisENG}
+            language={isENG}
+            isLogged={isLogged}
+            setIsLogged={setIsLogged}
+            logoutHandler={logoutHandler}
+          />
+          <View style={{ height: "80%" }}>
+            <ScrollView>
+              <FlatList
+                data={content}
+                renderItem={({ item }) =>
+                  <FormCard
+                    setLanguage={setisENG}
+                    responseCode={responseCode}
+                    language={isENG}
+                    key={item.id}
+                    tsubNum={item.new}
+                    csubNum={item.count}
+                    title={item.title}
+                    appKey={appKey}
+                    id={item.id}
+                    status={item.status}
+                  />}
+                keyExtractor={item => item.id}
+                numColumns={2}
+                extraData={isENG}
+              />
+            </ScrollView>
+            <View
+              style={[
+                styles.feedbackOut,
+                { width: isENG ? "42%" : "47%" }
+              ]}>
+              <TouchableOpacity style={styles.feedbackIn} onPress={() => setFeedback(true)}>
+                <FontAwesome
+                  name='edit'
+                  size={25}
+                  color="white"
+                  style={{ padding: 5 }} />
+                <Text style={{ color: "white", fontSize: 14 }}>
+                  {isENG ? "Give Feedback" : "Geri Bildirim Gönder"}
+                </Text>
+              </TouchableOpacity>
             </View>
-          </View >
-        </SafeAreaView>
+            <Feedback
+              modalVisible={seeFeedback}
+              setModalVisible={setFeedback}
+              keyboardVisible={isKeyboardVisible}
+              language={isENG}
+            />
+          </View>
+        </View >
 
       );
     } else {
@@ -188,10 +230,12 @@ export default function App() {
 
       <Login
         loginHandler={testLogin}
+        responseCode={responseCode}
         username={username}
         password={password}
         usernameHandler={usernameHandler}
         passwordHandler={passwordHandler}
+        responseCode={responseCode}
       />
     );
 }
@@ -204,5 +248,23 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: "row",
     marginBottom: "1.5%"
-  }
+  },
+  feedbackOut: {
+    backgroundColor: "#0384fc",
+    borderRadius: 23,
+    borderWidth: 2,
+    borderColor: "#0384fc",
+    position: "absolute",
+    bottom: "2.5%",
+    right: 15,
+    height: "7%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  feedbackIn: {
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row"
+  },
 });
