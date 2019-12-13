@@ -7,7 +7,7 @@ const Login = (props) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, {borderBottomColor: props.responseCode !== "401" ? "ligtgrey" : "red"}]}>
                 <View style={{
                     marginRight: 10,
                     padding: 0
@@ -19,7 +19,7 @@ const Login = (props) => {
                 </View>
                 <TextInput placeholder="Username or Email" onChangeText={(text) => props.usernameHandler(text)} />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, {borderBottomColor: props.responseCode !== "401" ? "ligtgrey" : "red"}]}>
                 <View style={{
                     marginRight: 10,
                     padding: 0
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
         marginBottom: 35,
         paddingVertical: 5,
         width: "85%",
-        borderBottomColor: "lightgrey",
         borderBottomWidth: 2
     },
     buttonContainer: {

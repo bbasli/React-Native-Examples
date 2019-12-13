@@ -14,7 +14,7 @@ const Header = (props) => {
     const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
     const [headerTitle, setHeaderTitle] = useState("My Forms");
-
+    
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -75,6 +75,7 @@ const Header = (props) => {
                     setTitle={setHeaderTitle}
                 />
                 <SettingsModal
+                    setResponseCode={props.setResponseCode}
                     username={props.username}
                     email={props.email}
                     language={props.language}

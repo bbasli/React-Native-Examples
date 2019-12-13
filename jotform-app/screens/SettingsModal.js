@@ -13,7 +13,7 @@ const SettingsModal = (props) => {
             visible={props.modalVisible}>
             <View style={{ height: "100%" }}>
                 <View style={styles.header}>
-                    <TouchableOpacity style={styles.goBack} onPress={() => (props.setModalVisible(false), props.setLanguage(false))}>
+                    <TouchableOpacity style={styles.goBack} onPress={() => (props.setModalVisible(false))}>
                         <Feather
                             name='chevron-left'
                             size={26}
@@ -48,8 +48,10 @@ const SettingsModal = (props) => {
                         </View>
                     </View>
                     <View style={styles.subCategory}>
-                        <TouchableOpacity style={styles.catogory} onPress={() => props.setLanguage(!props.language)}>
-                            <Text style={{ color: "black", fontSize: 18 }}>  {props.language ? "Language" : "Dil"}  </Text>
+                        <TouchableOpacity style={styles.catogory} onPress={() => (props.setLanguage(!props.language), props.setResponseCode("999"))}>
+                            <Text style={{ color: "black", fontSize: 18 }}>
+                                {props.language ? "Language" : "Dil"}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.subCategory}>
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         backgroundColor: "#2c3144",
-        height: "9%",
+        height: "12.5%",
         justifyContent: "center",
         paddingTop: 15
     },

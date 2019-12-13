@@ -12,7 +12,7 @@ const FormCard = (props) => {
     const [isFav, setIsFav] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [seeSub, setSeeSub] = useState(false);
-    console.log("Form Card is eng: ",props.language);
+
     return (
         <TouchableOpacity style={styles.cardContainer} onPress={() => setModalVisible(!modalVisible)}>
             <FormModal
@@ -47,14 +47,16 @@ const FormCard = (props) => {
                             />
                     }
                 </TouchableOpacity>
-                <Text style={styles.subNum}> {props.tsubNum} </Text>
+                <Text style={props.tsubNum !== "0" ? styles.subNum : {}}> {props.tsubNum === "0" ? "" : props.tsubNum} </Text>
             </View>
             <Text style={styles.title}>
                 {props.title}
             </Text>
             <Text style={styles.bottom}>
                 {props.language ?
-                    ((props.csubNum === "0" ? "No" : props.csubNum) + " Submission") : "Türkçe"}
+                    ((props.csubNum === "0" ? "No" : props.csubNum) + " Submissions")
+                    :
+                    (props.csubNum === "0" ? "Form Yanıtı Yok" : (props.csubNum + " Form Yanıtı") )}
             </Text>
         </TouchableOpacity>
     );
